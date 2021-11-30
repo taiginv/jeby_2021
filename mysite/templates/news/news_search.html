@@ -1,0 +1,24 @@
+{% extends 'base_news.html' %}
+
+{% load static %}
+
+{% block custom_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'news/css/news_search.css' %}" />
+{% endblock custom_css %}
+
+{% block content %}
+<div class="container" id="search-box">
+
+</div>
+
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'news/js/news_search.js' %}"></script>
+{% endblock script %}

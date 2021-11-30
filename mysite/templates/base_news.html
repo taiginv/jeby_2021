@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'news/css/base_news.css' %}"/>
+{% endblock custom_css %}
+
+{% block body %}
+<body class="d-flex flex-column h-100">
+    {% include 'include/navbar.html' %}
+
+    <div class="container" id="error_msg">
+        <div class="row">
+            <div class="col">
+                {% include "include/form_errors.html" %}
+            </div>
+        </div>
+    </div>
+    
+    <main class="h-100">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    {% block footer %}
+        {% include 'include/footer.html' %}
+    {% endblock footer %}
+
+</body>
+{% endblock body %}
+
+{% block script %}
+    {{ block.super }}
+
+{% endblock script %}
