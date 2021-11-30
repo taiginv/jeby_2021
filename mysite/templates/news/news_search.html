@@ -9,10 +9,73 @@
 
 {% block content %}
 <div class="container" id="search-box">
+    <form action="" method="get" id="frm-search">
+        <div class="d-flex flex-column">
+            {% if not form.keyword.value %}
+            <div class="row mb-1">
+                <div class="col text-center">
+                    <p class="h4" id="search-title">뉴스 검색 키워드를 입력하세요.</p>
+                </div>
+            </div>
+            {% endif %}
 
+            <div class="row" style="padding-bottom:16px;">
+                <div class="col">
+                    <div class="card border-secondary shadow-sm">
+                        <div class="card-body" id="keyword-box">
+                            <div class="d-flex flex-row">
+                                <button type="button" class="btn btn-secondary" id="btn-keyword-group"
+                                    data-bs-toggle="modal" data-bs-target="#keywordListModal">키워드</button>
+                                <div class="flex-grow-1">
+                                    <input type="text" class="form-control" name="keyword" id="input-keyword"
+                                        value="{{ form.keyword.value|default_if_none:'' }}" autocomplete=off>
+                                </div>
+                                <div class="me-2">
+                                    <a href="#"><span id="search-img"><i class="fas fa-search"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {% if form.keyword.value %}
+    <div class="row mb-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    검색뉴스 ({{ news_list|length }}건)
+                </div>
+                <div class="card-body py-2">
+                    {% if news_list %}
+                    {% for news in news_list %}
+                    <div class="news-item fs-6" id="news-{{ forloop.counter }}">
+                        <span class="check-sitename me-2">
+                            <i class="bi bi-square"></i>
+                        </span>
+                        <span class="box-sitename me-2">
+                        </span>
+                        <a href="{{ news.originallink }}" target="_blank">
+                            <span class="news-title" style="font-weight:400;">
+                                {{ news.title|safe|truncatechars:50 }}
+                            </span>
+                        </a>
+                        <span class="badge bg-light text-dark">
+                            {{ news.pubDate|date:"Y/m/d H:i:s" }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    검색된 뉴스가 없습니다.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
-
-
 {% endblock content %}
 
 {% block footer %}
